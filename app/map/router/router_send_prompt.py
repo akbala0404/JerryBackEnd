@@ -72,7 +72,7 @@ def find_place(request: FindPlaceRequest):
 
     # Construct the Place based on the found name.
     place = Place(type="unknown", name=name)  # "unknown" is a placeholder again.
-    return PlacesResponse(places=place_data)
+    return PlacesResponse(places=json.dumps(place_data))
 
 
 def get_google_maps_route(origin: str, destination: str, mode: str) -> dict:
