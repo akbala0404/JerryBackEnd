@@ -12,6 +12,19 @@ import logging
 import string
 import ast
 
+logging.basicConfig(
+    level=logging.INFO,  # Set the logging level as needed
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("app.log"),  # Log to a file
+        logging.StreamHandler()  # Log to console
+    ]
+)
+
+class PlaceSearchRequest(BaseModel):
+    query: str
+    place_type: str
+
 class RouteRequest(BaseModel):
     origin: str
     destination: str
@@ -75,6 +88,24 @@ def find_place(request: FindPlaceRequest):
     return PlacesResponse(places=json.dumps(place_data))
 
 
+@router.post("/search_places")
+def search_places(request_data: PlaceSearchRequest):
+    params = {
+        "query": request_data.query,
+        "type": request_data.place_type,
+        "key": "AIzaSyDOtiS_ckxQn7JoyhUjLdasDTU9iL4F2Zc"
+    }
+    
+    base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
+    
+    response = requests.get(base_url, params=params)
+    
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        raise HTTPException(status_code=400, detail="Failed to retrieve data from Google Maps API")
+    
 def get_google_maps_route(origin: str, destination: str, mode: str) -> dict:
     GOOGLE_MAPS_API_KEY = "AIzaSyDOtiS_ckxQn7JoyhUjLdasDTU9iL4F2Zc"
     base_url = "https://maps.googleapis.com/maps/api/directions/json?"
