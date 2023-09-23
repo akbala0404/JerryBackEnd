@@ -35,7 +35,7 @@ class Place(BaseModel):
     description: str = ""
 
 class PlacesResponse(BaseModel):
-    data: str
+    places: str
 
 @router.post("/route", response_model=RouteResponse)
 def get_route(request: RouteRequest) -> RouteResponse:
@@ -72,7 +72,7 @@ def find_place(request: FindPlaceRequest):
 
     # Construct the Place based on the found name.
     place = Place(type="unknown", name=name)  # "unknown" is a placeholder again.
-    return PlacesResponse(places=json.dumps(place_data))
+    return PlacesResponse(places=place_data)
 
 
 def get_google_maps_route(origin: str, destination: str, mode: str) -> dict:
@@ -90,7 +90,7 @@ def get_google_maps_route(origin: str, destination: str, mode: str) -> dict:
     if "routes" not in data or not data["routes"]:
         return None
 
-    return data["routes"][0]
+    return data
 
 def get_google_maps_autocomplete(input: str, language: str = "en") -> dict:
     GOOGLE_MAPS_API_KEY = "AIzaSyDOtiS_ckxQn7JoyhUjLdasDTU9iL4F2Zc"
