@@ -18,6 +18,12 @@ import ast
 # index = VectorstoreIndexCreator().from_loaders([loader])
 
 
+class UserRequest(AppModel):
+    request: str
+    # userID: str
+class UserResponse(AppModel):
+    response: str
+
 class ChatRequest(AppModel):
     prompt: str
     userID: str
@@ -68,7 +74,14 @@ def chat_with_ai(
     prompt = request.prompt
     response = svc.chat_service.get_response(prompt)
     content_text = response["content"]
-    return ChatResponse(response=content_text)
+    return ChatResponse(response=content_text)\
+
+@router.post("/user_request", response_model=UserResponse)
+def user_request(
+    request: UserRequest,
+) -> UserResponse:
+    response = request.request
+    return UserResponse(response=response)
 
 
 @router.post("/createGame", response_model=GameDevResponse)
