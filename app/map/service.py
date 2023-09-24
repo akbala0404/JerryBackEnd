@@ -16,8 +16,7 @@ class Service:
     def __init__(self, repository: MapRepository):
         # config = Config()        
         self.repository = repository
-        self.map_service = MapService()
-        # self.here_service = HereService(config.HERE_API_KEY)
+        self.map_service = MapService(os.environ.get("GOOGLE_MAPS_API_KEY"))
 
 
 def get_service():
