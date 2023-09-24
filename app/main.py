@@ -5,7 +5,7 @@ from app.auth.router import router as auth_router
 from app.chat.router import router as chat_router
 from app.map.router import router as map_router
 from app.config import client, env, fastapi_config
-
+from app.history.router import router as posts_router
 app = FastAPI(**fastapi_config)
 
 
@@ -25,3 +25,4 @@ app.add_middleware(
 app.include_router(auth_router, prefix="/auth", tags=["Auth"])
 app.include_router(chat_router, prefix="/chat", tags=["Chat"])
 app.include_router(map_router, prefix="/map", tags=["Map"])
+app.include_router(posts_router, prefix="/history", tags=["History"])
