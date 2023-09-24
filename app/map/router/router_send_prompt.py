@@ -1,3 +1,4 @@
+import os
 from array import array
 
 from fastapi import APIRouter, Depends, status, HTTPException
@@ -93,7 +94,7 @@ def search_places(request_data: PlaceSearchRequest):
     params = {
         "query": request_data.query,
         "type": request_data.place_type,
-        "key": "AIzaSyDOtiS_ckxQn7JoyhUjLdasDTU9iL4F2Zc"
+        "key": os.environ.get("GOOGLE_MAPS_API_KEY")
     }
     
     base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
@@ -107,7 +108,7 @@ def search_places(request_data: PlaceSearchRequest):
         raise HTTPException(status_code=400, detail="Failed to retrieve data from Google Maps API")
     
 def get_google_maps_route(origin: str, destination: str, mode: str) -> dict:
-    GOOGLE_MAPS_API_KEY = "AIzaSyDOtiS_ckxQn7JoyhUjLdasDTU9iL4F2Zc"
+    GOOGLE_MAPS_API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
     base_url = "https://maps.googleapis.com/maps/api/directions/json?"
     params = {
         "origin": origin,
@@ -124,7 +125,7 @@ def get_google_maps_route(origin: str, destination: str, mode: str) -> dict:
     return data
 
 def get_google_maps_autocomplete(input: str, language: str = "en") -> dict:
-    GOOGLE_MAPS_API_KEY = "AIzaSyDOtiS_ckxQn7JoyhUjLdasDTU9iL4F2Zc"
+    GOOGLE_MAPS_API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
     base_url = "https://maps.googleapis.com/maps/api/place/queryautocomplete/json?"
     params = {
         "input": input,
@@ -136,7 +137,7 @@ def get_google_maps_autocomplete(input: str, language: str = "en") -> dict:
     return response.json()
 
 def get_google_maps_findplace(input: str, language: str = "en") -> dict:
-    GOOGLE_MAPS_API_KEY = "AIzaSyDOtiS_ckxQn7JoyhUjLdasDTU9iL4F2Zc"
+    GOOGLE_MAPS_API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
     base_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?"
     params = {
         "input": input,
