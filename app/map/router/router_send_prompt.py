@@ -29,7 +29,8 @@ class PlaceSearchRequest(BaseModel):
 class RouteRequest(BaseModel):
     origin: str
     destination: str
-    mode: str = "driving"
+    mode: str = "walking"
+    waypoints: Optional[str] = None
 
 class RouteResponse(BaseModel):
     route: str
@@ -96,23 +97,25 @@ def search_places(request_data: PlaceSearchRequest):
         "type": request_data.place_type,
         "key": os.environ.get("GOOGLE_MAPS_API_KEY")
     }
-    
+
     base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
-    
+
     response = requests.get(base_url, params=params)
-    
+
     if response.status_code == 200:
         data = response.json()
         return data
     else:
         raise HTTPException(status_code=400, detail="Failed to retrieve data from Google Maps API")
     
-def get_google_maps_route(origin: str, destination: str, mode: str) -> dict:
+def get_google_maps_route(origin: str, destination: str, mode: str, waypoints: str = "") -> dict:
     GOOGLE_MAPS_API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
     base_url = "https://maps.googleapis.com/maps/api/directions/json?"
     params = {
         "origin": origin,
         "destination": destination,
+        "mode": mode,
+        "waypoints": waypoints,
         "key": GOOGLE_MAPS_API_KEY
     }
 
