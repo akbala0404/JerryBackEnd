@@ -3,7 +3,7 @@ from array import array
 from fastapi import APIRouter, Depends, status, HTTPException
 from app.utils import AppModel, BaseModel
 from pydantic import Field
-from typing import Any, List, Dict
+from typing import Any, List, Dict, Optional
 from ..service import Service, get_service
 from . import router
 import requests
@@ -23,7 +23,7 @@ logging.basicConfig(
 
 class PlaceSearchRequest(BaseModel):
     query: str
-    place_type: str
+    place_type: Optional[str] = None
 
 class RouteRequest(BaseModel):
     origin: str
