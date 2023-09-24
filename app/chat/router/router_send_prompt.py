@@ -124,7 +124,7 @@ def editUserPrompt(
                 waypoints=waypoints_str
             )
 
-            logging.info(f"Route Response: {route_response}")
+            # logging.info(f"Route Response: {route_response}")
 
             return {
                 "places": places,  # Return the chosen places
