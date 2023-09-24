@@ -71,3 +71,47 @@ def editUserPrompt(
     )
     search_result = search_places(request_data=search_request_data)
     return search_result
+
+# @router.post("/editUsersPromptTest")
+# def editUserPrompTest(
+#     request: ChatRequest,
+#     svc: Service = Depends(get_service),
+# ):
+#     prompt = request.prompt
+#     response = svc.chat_service.editUserPrompt(prompt)
+#     content_text = response["content"]
+#     response_data = json.loads(content_text)
+
+#     # logging.info(f"User Request Response: {response_data}")
+
+#     # query = response_data[0].get("name", "")
+#     # place_type = response_data[0].get("type", "")
+
+#     # search_request_data = PlaceSearchRequest(
+#     #     query=query,
+#     #     place_type=place_type
+#     # )
+#     # search_result = search_places(request_data=search_request_data)
+#     return response_data
+
+# @router.post("/editUsersPromptTest2")
+# def editUserPrompTest2(
+#     request: ChatRequest,
+#     svc: Service = Depends(get_service),
+# ):
+#     prompt = request.prompt
+#     response = svc.chat_service.editUserPrompt(prompt)
+#     content_text = response["content"]
+#     response_data = json.loads(content_text)
+
+#     # logging.info(f"User Request Response: {response_data}")
+
+#     # query = response_data[0].get("name", "")
+#     # place_type = response_data[0].get("type", "")
+
+#     # search_request_data = PlaceSearchRequest(
+#     #     query=query,
+#     #     place_type=place_type
+#     # )
+#     # search_result = search_places(request_data=search_request_data)
+#     return response_data
