@@ -52,10 +52,11 @@ def user_request(
 
 import logging
 
+
 @router.post("/editUsersPrompt")
 def editUserPrompt(
-    request: ChatRequest,
-    svc: Service = Depends(get_service),
+        request: ChatRequest,
+        svc: Service = Depends(get_service),
 ):
     try:
         prompt = request.prompt
@@ -99,7 +100,8 @@ def editUserPrompt(
                 address = highest_rated_place.get("formatted_address", "")
                 waypoints.append(address)
 
-        logging.info(f"waypoints: {waypoints}")
+                # Add the highest-rated place to the places list
+                places.append(highest_rated_place)
 
         # Ensure that origin and destination are provided
         if waypoints:
@@ -125,7 +127,7 @@ def editUserPrompt(
             logging.info(f"Route Response: {route_response}")
 
             return {
-                "places": places,
+                "places": places,  # Return the chosen places
                 "route": route_response
             }
         else:
