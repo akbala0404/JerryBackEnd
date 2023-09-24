@@ -15,6 +15,7 @@ class PostRepository:
             "name": input["name"],
             "lat": input["lat"],
             "lng": input["lng"],
+            "imageUrl": input["imageUrl"],
             "created_at": datetime.utcnow(),
             "user_id": ObjectId(input["user_id"])
         }

@@ -14,6 +14,7 @@ class CreateHistoryRequest(AppModel):
     name: str
     lat: float
     lng: float
+    imageUrl: str
 
 
 @router.post("/createHistory")
@@ -33,6 +34,7 @@ class History(AppModel):
     name: str
     lat: float
     lng: float
+    imageUrl: str
 
 
 class GetHistoryResponse(AppModel):
